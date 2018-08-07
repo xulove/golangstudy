@@ -23,7 +23,7 @@ type page struct {
 	// 当前页是否有后续页。
 	// 如果有，表示后续页的数量。如果没有，则为0
 	overflow uint64
-	// 用于标记也头结尾处，或者业内存储数据的起始处。
+	// 用于标记页头结尾处，或者页面内存储数据的起始处。
 	ptr uintptr
 }
 // meta page的结构
@@ -55,4 +55,15 @@ func (m *meta) sum64() uint64 {
 	var h = fnv.New64a()
 	h.Write((*[unsafe.Offsetof(meta{}.chckksum)]byte)(unsafe.Pointer(m))[:])
 	return h.Sum64()
+}
+// 验证mata page的有效性
+func (m *meta) validate() error {
+	if m.magic != magic {
+		return ErrInvalid
+	}else if m.version != version {
+		return ErrVersionMismatch
+	}else if m.chckksum != 0 && m.chckksum != m.sum64(){
+		return ErrChecksum
+	}
+	return nil
 }
