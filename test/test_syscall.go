@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	f,err := os.OpenFile("mmap.bin",os.O_RDWR|os.O_CREATE,0644)
+	f,err := os.OpenFile("./test/mmap.bin",os.O_RDWR|os.O_CREATE,0644)
 	if err != nil {
 		//log.Fatalln(err)
 	}
