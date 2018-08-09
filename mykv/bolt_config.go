@@ -11,3 +11,7 @@ const IgnoreNoSync = runtime.GOOS == "openbsd"
 const magic uint32 = 0xED0CDAED
 const version = 2
 const maxMmapStep = 1 << 30 // 1GB
+const maxAllocSize = 0x7FFFFFFF
+
+const leafPageElementSize = int(unsafe.Sizeof(leafPageElement{}))
+const branchPageElementSize = int(unsafe.Sizeof(branchPageElement{}))

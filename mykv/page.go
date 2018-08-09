@@ -48,6 +48,26 @@ type meta struct {
 	// checksum 上面所有字段64位哈希校验
 	chckksum uint64
 }
+
+//一个branchPage或leafPage由页头和若干branchPageElements或leafPageElements组成
+
+type branchPageElement struct {
+	//element对应的K/V对存储位置相对于当前element的偏移
+	pos   uint32
+	//element对应的Key的长度，以字节为单位
+	ksize uint32
+	//element指向的子节点所在page的页号
+	pgid  pgid
+}
+
+type leafPageElement struct {
+	//标明当前element是否代表一个Bucket，如果是Bucket则其值为1，如果不是则其值为0
+	flags uint32
+	pos   uint32
+	ksize uint32
+	vsize uint32
+}
+
 func (p *page)meta()*meta{
 	return (*meta)(unsafe.Pointer(&p.ptr))
 }

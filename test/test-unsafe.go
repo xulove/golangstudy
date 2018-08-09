@@ -12,8 +12,9 @@ type Person struct {
 }
 
 func main() {
-	p := &Person{"xu",18,"zhongguo"}
-	fmt.Println(unsafe.Offsetof(Person{}.address))
-	temp := (*[unsafe.Offsetof(Person{}.address)]byte)(unsafe.Pointer(p))[:]
-	fmt.Println(temp)
+	p := &Person{"xu",18,"zhongguo123"}
+	//fmt.Println(unsafe.Offsetof(Person{}.address))
+	//temp := (*[unsafe.Offsetof(Person{}.address)]byte)(unsafe.Pointer(p))[:]
+	//fmt.Println(temp)
+	fmt.Println(unsafe.Sizeof(*p))
 }
